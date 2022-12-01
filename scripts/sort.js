@@ -8,6 +8,7 @@ console.log('this button works');
 
 // stretch features
   // when the groups are formed, they are closed
+  // toggle to decide if pinned tabs are grouped or not
 
   // user could designate which urls to be condensed
   // user could designate requisite number of open tabs of one url to be eligible for condensing

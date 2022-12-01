@@ -29,11 +29,6 @@ console.log(tabs);
     // check the cache keys for the base url string (https://www.youtube.com)
     // value is an array that we push the tab's IDs into
 const cache = {};
-// for(let i = 0; i < tabs.length; i++) {
-//   tabs[i].url = tabs[i].url.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/img, '');
-//   console.log(tabs[i].url);
-// }
-
 for(let i = 0; i < tabs.length; i++) {
     const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/img;
 
@@ -48,8 +43,7 @@ for(let i = 0; i < tabs.length; i++) {
 console.log(cache);
 // now we have a cache of keys of the base urls and a value that is an array of all of the urls that match the base url !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
-  // loop through the cache ofject
+  // loop through the cache object
     // call chrome.tabs.group(the array of IDs)
     // chrome.tabGroups.update(the new group, { title: cleaned up string of the base url})
 const cacheArr = Object.entries(cache);
