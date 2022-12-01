@@ -4,11 +4,12 @@ console.log('this button works');
 
 // MVP
   // grab every tab and condense them by url into groups
-
+  // when the groups are formed, they are closed --DONE
+  // toggle to decide if pinned tabs are grouped or not --DONE
 
 // stretch features
-  // when the groups are formed, they are closed --DONE
-  // toggle to decide if pinned tabs are grouped or not
+
+
   // user could designate requisite number of open tabs of one url to be eligible for condensing
 
   // user could designate which urls to be condensed

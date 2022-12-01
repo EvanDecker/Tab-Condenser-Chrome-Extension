@@ -1,13 +1,6 @@
 //query retrives the tabs
 
 // when we call query, pass no parameters so that we get all tabs
-// const tabs = await chrome.tabs.query({
-//     url: [
-//         "https://developer.chrome.com/docs/webstore/*",
-//         "https://developer.chrome.com/docs/extensions/*",
-//     ]
-// })
-
 // get all tabs into one array
 let tabs = await chrome.tabs.query({});
 
@@ -22,36 +15,75 @@ function compare (a,b) {
     return 0;
 }
 tabs = tabs.sort(compare);
-console.log(tabs);
+// console.log(tabs);
 
   // declare a cache object
     // loop through the array
     // check the cache keys for the base url string (https://www.youtube.com)
     // value is an array that we push the tab's IDs into
-const cache = {};
-for(let i = 0; i < tabs.length; i++) {
-    const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/img;
 
-    let hostname = regex.exec(tabs[i].url);
-    
-    if (cache[hostname[1]] === undefined) {
-      cache[hostname[1]] = [];
-    } 
-    cache[hostname[1]].push(tabs[i].id);
-  }
+function createCache() {
+  const cache = {};
 
-console.log(cache);
+  const pinnedCheckboxValue = document.getElementById('pinned-toggle').checked;
+
+  for(let i = 0; i < tabs.length; i++) {
+      const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/img;
+  
+      let hostname = regex.exec(tabs[i].url);
+      
+      // cache[hostname[1]].push(tabs[i].id);
+      if(pinnedCheckboxValue === true) {
+        if (cache[hostname[1]] === undefined) {
+          cache[hostname[1]] = [];
+        } 
+        cache[hostname[1]].push(tabs[i].id);
+      } else {
+        if (tabs[i].pinned === false) {
+          if (cache[hostname[1]] === undefined) {
+            cache[hostname[1]] = [];
+          } 
+          cache[hostname[1]].push(tabs[i].id);
+        }
+      }
+      
+      // cache[hostname[1]].push([tabs[i].id, tabs[i].pinned]);
+    }
+  
+  console.log(cache);
+  return cache;
+}
+// const cache = createCache();
+// console.log(cache);
+
+// {
+//   youtube.com: [[23746298374, true], [28934702983472, false], [980273048234, true]]
+
+//   github.com: {
+//     ids: [2897402874092843, 820734092873408, 289734092734],
+//     pinned: [true, false, true]
+//   }
+// }
+
+//pinned = true
+
 // now we have a cache of keys of the base urls and a value that is an array of all of the urls that match the base url !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   // loop through the cache object
     // call chrome.tabs.group(the array of IDs)
     // chrome.tabGroups.update(the new group, { title: cleaned up string of the base url})
-const cacheArr = Object.entries(cache);
+
 
 const button = document.querySelector('button');
 button.addEventListener("click", async () => {
+  const cache = createCache();
+
+  const cacheArr = Object.entries(cache);
+  console.log(cacheArr);
+
   for(let i = 0; i < cacheArr.length; i++) {
     console.log(cacheArr[i]);
+
     const newGroup = await chrome.tabs.group({ tabIds: cacheArr[i][1] });
     await chrome.tabGroups.update(newGroup, {
       title: cacheArr[i][0],
