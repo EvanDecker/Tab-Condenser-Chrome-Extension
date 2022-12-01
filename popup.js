@@ -53,7 +53,10 @@ button.addEventListener("click", async () => {
   for(let i = 0; i < cacheArr.length; i++) {
     console.log(cacheArr[i]);
     const newGroup = await chrome.tabs.group({ tabIds: cacheArr[i][1] });
-    await chrome.tabGroups.update(newGroup, { title: cacheArr[i][0]});
+    await chrome.tabGroups.update(newGroup, {
+      title: cacheArr[i][0],
+      collapsed: true
+    });
   }
 });
 

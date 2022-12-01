@@ -7,13 +7,12 @@ console.log('this button works');
 
 
 // stretch features
-  // when the groups are formed, they are closed
+  // when the groups are formed, they are closed --DONE
   // toggle to decide if pinned tabs are grouped or not
+  // user could designate requisite number of open tabs of one url to be eligible for condensing
 
   // user could designate which urls to be condensed
-  // user could designate requisite number of open tabs of one url to be eligible for condensing
   // within the popup, have a list of all the current groups (with optional link to it)
-
   // remove the .com from the hostname in popup.js
 
 
