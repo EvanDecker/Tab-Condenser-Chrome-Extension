@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    background-color: azure;
+}
+
+.segment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.segment input {
+  width: 40px;
+  height: 20px;
+}
+
+button {
+  margin-top: 15px;
+}
+
+.list-div {
+  margin-left: 0;
+  margin-bottom: 5px;
+  font-size: 16px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+#link-list {
+  margin-top: 15px;
+}

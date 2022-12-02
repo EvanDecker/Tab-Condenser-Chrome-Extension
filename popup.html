@@ -1,15 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  <body>
-    <h1>Cool Tab Grouper</h1>
-    <button>Group my tabs!</button>
-    <script src="./scripts/sort.js"></script>
-    <script src="./popup.js"></script>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,12 +7,19 @@
     <link rel="stylesheet" href="./popup.css" />
   </head>
   <body>
-    <h1>Cool Tab Condenser</h1>
-    <label for="pinned-toggle">Condense Pinned Tabs</label>
-    <input type="checkbox" id="pinned-toggle">
+    <h2>Cool Tab Condenser</h2>
+    <div class="segment">
+      <label for="pinned-toggle">Condense Pinned Tabs</label>
+      <input type="checkbox" id="pinned-toggle">
+    </div>
+    <div class="segment">
+      <label for="tab-number-check">Min URL Tabs</label>
+      <input type="number" id="tab-number-check" value=1>
+    </div>
     <button>Condense Tabs</button>
-    <ul></ul>
+    <div id="link-list">
 
+    </div>
     <script src="./popup.js" type="module"></script>
   </body>
 </html>

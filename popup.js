@@ -1,5 +1,4 @@
 //query retrives the tabs
-
 // when we call query, pass no parameters so that we get all tabs
 // get all tabs into one array
 let tabs = await chrome.tabs.query({});
@@ -56,17 +55,6 @@ function createCache() {
 // const cache = createCache();
 // console.log(cache);
 
-// {
-//   youtube.com: [[23746298374, true], [28934702983472, false], [980273048234, true]]
-
-//   github.com: {
-//     ids: [2897402874092843, 820734092873408, 289734092734],
-//     pinned: [true, false, true]
-//   }
-// }
-
-//pinned = true
-
 // now we have a cache of keys of the base urls and a value that is an array of all of the urls that match the base url !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   // loop through the cache object
@@ -74,23 +62,55 @@ function createCache() {
     // chrome.tabGroups.update(the new group, { title: cleaned up string of the base url})
 
 
+  // we need to get the new groupIds from the created groups
+  // append to the ul (link-list) a <li> element with a <a> that focuses on the corresponding group
+
+  // each iteration of the for loop
+    // 
+
+
 const button = document.querySelector('button');
 button.addEventListener("click", async () => {
   const cache = createCache();
-
   const cacheArr = Object.entries(cache);
-  console.log(cacheArr);
+  const tabNumberCheck = document.getElementById('tab-number-check').value;
+  const linkList = document.getElementById('link-list');
 
   for(let i = 0; i < cacheArr.length; i++) {
     console.log(cacheArr[i]);
 
-    const newGroup = await chrome.tabs.group({ tabIds: cacheArr[i][1] });
-    await chrome.tabGroups.update(newGroup, {
-      title: cacheArr[i][0],
-      collapsed: true
-    });
+    if(cacheArr[i][1].length >= tabNumberCheck) {
+      const newGroup = await chrome.tabs.group({ tabIds: cacheArr[i][1] });
+      
+      await chrome.tabGroups.update(newGroup, {
+        title: cacheArr[i][0],
+        collapsed: true
+      });
+      chrome.tabGroups.get(newGroup, (el) => {
+        console.log(el);
+
+        const liElement = document.createElement('div');
+        liElement.className = 'list-div';
+        liElement.innerText = el.title;
+
+        liElement.addEventListener('click', async (e) => {
+          const tabGroup = await chrome.tabGroups.get(el.id);
+          console.log(tabGroup);
+          if(tabGroup.collapsed === false) {
+            await chrome.tabGroups.update(el.id, { collapsed: true });
+          } else if(tabGroup.collapsed === true) {
+            await chrome.tabGroups.update(el.id, { collapsed: false });
+          }
+
+        });
+
+        linkList.appendChild(liElement);
+      });
+    }
   }
 });
+
+// await chrome.tabs.update(tab.id, { active: true });
 
 // const button = document.querySelector("button");
 // button.addEventListener("click", async () => {
@@ -113,14 +133,14 @@ button.addEventListener("click", async () => {
 //   // not for us
 //   const title = tab.title.split("-")[0].trim();
 //   // parsing the pathname for the specific query they are doing
-//   const pathname = new URL(tab.url).pathname.slice("/docs".length);
+  // const pathname = new URL(tab.url).pathname.slice("/docs".length);
 
 //   element.querySelector(".title").textContent = title;
 //   element.querySelector(".pathname").textContent = pathname;
 //   element.querySelector("a").addEventListener("click", async () => {
 //     // need to focus window as well as the active tab
-//     await chrome.tabs.update(tab.id, { active: true });
-//     await chrome.windows.update(tab.windowId, { focused: true });
+    // await chrome.tabs.update(tab.id, { active: true });
+    // await chrome.windows.update(tab.windowId, { focused: true });
 //   });
 
 //   elements.add(element);
