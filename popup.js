@@ -52,22 +52,12 @@ function createCache() {
   console.log(cache);
   return cache;
 }
-// const cache = createCache();
-// console.log(cache);
 
 // now we have a cache of keys of the base urls and a value that is an array of all of the urls that match the base url !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   // loop through the cache object
     // call chrome.tabs.group(the array of IDs)
     // chrome.tabGroups.update(the new group, { title: cleaned up string of the base url})
-
-
-  // we need to get the new groupIds from the created groups
-  // append to the ul (link-list) a <li> element with a <a> that focuses on the corresponding group
-
-  // each iteration of the for loop
-    // 
-
 
 const button = document.querySelector('button');
 button.addEventListener("click", async () => {
@@ -109,48 +99,3 @@ button.addEventListener("click", async () => {
     }
   }
 });
-
-// await chrome.tabs.update(tab.id, { active: true });
-
-// const button = document.querySelector("button");
-// button.addEventListener("click", async () => {
-//   // tabIds is using destructing/shorthand for extracting just the id properties of each tab object within the tabs array
-//   const tabIds = tabs.map(({ id }) => id);
-//   // the chrome.tabs.group function is what actually collects the tabs (by id) into a group
-//   const group = await chrome.tabs.group({ tabIds });
-//   // the tabGroups.update is here to simply apply the title of DOCS to the new group
-//   await chrome.tabGroups.update(group, { title: "DOCS" });
-// });
-
-
-
-// const template = document.getElementById("li_template");
-// const elements = new Set();
-// for (const tab of tabs) {
-//   // instatiating a copy of the template in the DOM I think?
-//   const element = template.content.firstElementChild.cloneNode(true);
-
-//   // not for us
-//   const title = tab.title.split("-")[0].trim();
-//   // parsing the pathname for the specific query they are doing
-  // const pathname = new URL(tab.url).pathname.slice("/docs".length);
-
-//   element.querySelector(".title").textContent = title;
-//   element.querySelector(".pathname").textContent = pathname;
-//   element.querySelector("a").addEventListener("click", async () => {
-//     // need to focus window as well as the active tab
-    // await chrome.tabs.update(tab.id, { active: true });
-    // await chrome.windows.update(tab.windowId, { focused: true });
-//   });
-
-//   elements.add(element);
-// }
-// document.querySelector("ul").append(...elements);
-
-//group all tabs
-
-
-
-      
-
-
